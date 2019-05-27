@@ -36,9 +36,10 @@ export default class ChatWindow extends Component {
     const { text } = this.state;
     if ( event.key === "Enter" && text.length !== 0 ) {
       axios.post( url, { text, time: dateCreator() } ).then( response => {
+        console.log(response)
         this.setState({ messages: response.data });
       });
-
+      
       this.setState({ text: '' });
     }
   }
@@ -63,7 +64,9 @@ export default class ChatWindow extends Component {
           <div id="ChatWindow__messagesChildContainer">
             {
               this.state.messages.map( message => (
-                <Message id={ message.id} key={ message.id } text={ message.text } time={ message.time } edit={ this.editMessage } remove={ this.removeMessage } />
+                
+                <Message id={ message.id} key={ message.id } user={message.user} text={ message.text } time={ message.time } edit={ this.editMessage } remove={ this.removeMessage } />
+              
               ))
             }
           </div>
